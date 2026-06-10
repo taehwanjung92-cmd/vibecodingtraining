@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="로또 번호 선택 전략 완벽 가이드. 홀짝 균형, 구간 분산, 번호 합계 전략을 배우고 내 번호를 직접 분석해보세요. 스마트 번호 생성기도 제공합니다." />
+  <meta name="keywords" content="로또번호전략,로또번호분석,홀짝균형,번호구간,로또합계전략,스마트번호생성" />
+  <meta property="og:title" content="로또 번호 선택 전략 & 번호 분석기" />
+  <meta property="og:description" content="홀짝 균형, 구간 분산, 합계 전략을 배우고 내 번호를 직접 분석해보세요." />
+  <meta property="og:type" content="article" />
+  <title>로또 번호 선택 전략 & 번호 분석기 | 로또 번호 추첨기</title>
+  <link href="/style.css" rel="stylesheet" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9408095057036591" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">🎱 로또 번호 추첨기</a>
+      <nav class="site-nav" aria-label="주 메뉴">
+        <a href="/" class="nav-link">홈</a>
+        <a href="/guide.html" class="nav-link">로또 가이드</a>
+        <a href="/strategy.html" class="nav-link active">번호 전략</a>
+        <a href="/about.html" class="nav-link">소개</a>
+        <a href="/privacy.html" class="nav-link">개인정보</a>
+      </nav>
+      <button id="theme-toggle" aria-label="테마 전환">🌙</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- 인터랙티브 번호 분석기 -->
+    <section class="container tool-section" id="analyzer">
+      <h1>🔍 내 번호 분석기</h1>
+      <p class="subtitle">번호 6개를 입력하면 홀짝 비율, 구간 분포, 합계 분석을 즉시 확인합니다.</p>
+
+      <div class="number-input-area">
+        <div class="number-inputs" id="number-inputs">
+          <input type="number" class="num-input" min="1" max="45" placeholder="번호" aria-label="번호 1" />
+          <input type="number" class="num-input" min="1" max="45" placeholder="번호" aria-label="번호 2" />
+          <input type="number" class="num-input" min="1" max="45" placeholder="번호" aria-label="번호 3" />
+          <input type="number" class="num-input" min="1" max="45" placeholder="번호" aria-label="번호 4" />
+          <input type="number" class="num-input" min="1" max="45" placeholder="번호" aria-label="번호 5" />
+          <input type="number" class="num-input" min="1" max="45" placeholder="번호" aria-label="번호 6" />
+        </div>
+        <button id="analyze-btn" class="analyze-btn">분석하기</button>
+      </div>
+
+      <div class="analysis-result" id="analysis-result" hidden>
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="result-label">홀수 / 짝수</div>
+            <div class="result-value" id="res-odd-even">-</div>
+            <div class="result-rating" id="res-odd-even-rating"></div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">번호 합계</div>
+            <div class="result-value" id="res-sum">-</div>
+            <div class="result-rating" id="res-sum-rating"></div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">연속 번호</div>
+            <div class="result-value" id="res-consec">-</div>
+            <div class="result-rating" id="res-consec-rating"></div>
+          </div>
+        </div>
+        <div class="zone-chart" id="zone-chart"></div>
+        <p class="analysis-note" id="analysis-note"></p>
+      </div>
+    </section>
+
+    <!-- 스마트 번호 생성기 -->
+    <section class="container tool-section" id="smart-gen">
+      <h2>⚡ 전략형 번호 생성기</h2>
+      <p class="subtitle">아래 전략 중 하나를 선택하면 해당 조건에 맞는 번호를 자동 생성합니다.</p>
+
+      <div class="strategy-buttons">
+        <button class="strat-btn active" data-mode="random">무작위</button>
+        <button class="strat-btn" data-mode="balanced">홀짝 균형</button>
+        <button class="strat-btn" data-mode="zone">구간 분산</button>
+        <button class="strat-btn" data-mode="sum">합계 균형</button>
+      </div>
+
+      <p class="strat-desc" id="strat-desc">무작위: 조건 없이 완전한 무작위로 6개 번호를 생성합니다.</p>
+
+      <div class="lotto-numbers smart-numbers" id="smart-numbers" aria-live="polite"></div>
+      <button id="smart-gen-btn">생성하기</button>
+
+      <div class="smart-analysis" id="smart-analysis" hidden></div>
+    </section>
+
+    <div class="ad-banner">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-9408095057036591"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- 전략 가이드 콘텐츠 -->
+    <article class="container guide-article" id="strategy-guide">
+
+      <div class="article-header">
+        <span class="article-badge">전략 가이드</span>
+        <h2 style="font-size:1.7rem;">로또 번호 선택, 전략이 의미 있을까?</h2>
+        <p class="article-lead">어떤 번호 조합도 당첨 확률은 같습니다. 하지만 번호를 어떻게 구성하느냐에 따라 혼자 당첨금을 받을 가능성은 달라질 수 있습니다.</p>
+      </div>
+
+      <section id="s1">
+        <h3>무작위 선택이 수학적으로 공정한 이유</h3>
+        <p>로또는 무작위 추첨이기 때문에 수학적으로 모든 번호 조합의 1등 당첨 확률은 1/8,145,060으로 동일합니다. 따라서 "1, 2, 3, 4, 5, 6"을 선택하는 것과 "3, 17, 24, 31, 38, 42"를 선택하는 것은 확률상 완전히 같습니다. 어떤 번호도 지난 추첨 결과에 영향을 받지 않습니다. 지난 회차에 나온 번호가 다음에 또 나올 확률도, 오랫동안 나오지 않은 번호가 이번에 나올 확률도 — 모두 같습니다.</p>
+        <p>그런데도 전략을 이야기하는 이유는 따로 있습니다. 1등 당첨금은 당첨자 수로 나누어지기 때문에, 많은 사람들이 선택하는 번호 조합과 같아지면 당첨금을 여럿이 나눠야 합니다. 남들이 잘 고르지 않는 번호 조합을 선택하면, 당첨됐을 때 더 큰 금액을 혼자 가져갈 가능성이 높아집니다.</p>
+      </section>
+
+      <section id="s2">
+        <h3>홀수·짝수 균형 전략</h3>
+        <p>1부터 45 사이에는 홀수 23개(1, 3, 5, …, 45)와 짝수 22개(2, 4, …, 44)가 있습니다. 6개 번호 모두 홀수이거나 모두 짝수일 확률은 각각 약 1.6%, 0.9%에 불과합니다. 즉, 역대 추첨 결과에서 6개 모두 홀수 또는 짝수인 경우는 드뭅니다.</p>
+        <p>통계적으로 역대 당첨 번호를 분석하면, <strong>3홀 3짝(각 3개), 4홀 2짝, 2홀 4짝</strong> 조합이 전체의 약 70% 이상을 차지합니다. 따라서 6개 번호를 선택할 때 홀수와 짝수를 3:3 또는 4:2 비율로 구성하면, 통계적으로 더 자연스러운 분포의 번호를 만들 수 있습니다.</p>
+        <p>물론 이것이 당첨 확률을 높이는 것은 아닙니다. 다만 실제 추첨 결과와 비슷한 패턴의 번호를 선택함으로써, 만약 당첨이 된다면 비슷한 전략을 쓴 다른 사람들과 당첨금을 나눠야 할 가능성이 낮아집니다.</p>
+      </section>
+
+      <section id="s3">
+        <h3>번호 구간 분산 전략</h3>
+        <p>1~45의 번호를 5개 구간으로 나누어볼 수 있습니다. 낮은 구간(1~9, 9개), 10대 구간(10~19, 10개), 20대 구간(20~29, 10개), 30대 구간(30~39, 10개), 40대 구간(40~45, 6개)입니다.</p>
+        <p>역대 당첨 번호를 살펴보면, 특정 구간에 번호가 몰리는 경우는 매우 드뭅니다. 예를 들어 6개 번호가 모두 1~15 사이에서 나오거나, 30~45 사이에서만 나오는 경우는 극히 이례적입니다. 반면 각 구간에서 1~2개씩 고르게 분산된 번호 조합은 자주 등장합니다.</p>
+        <p>또한 많은 사람들이 생일 숫자(1~31)에 편중해 번호를 고르는 경향이 있습니다. 32~45 사이의 숫자를 1~2개 포함시키면 타인과 같은 번호 조합이 될 확률을 낮출 수 있습니다.</p>
+      </section>
+
+      <section id="s4">
+        <h3>번호 합계 전략</h3>
+        <p>6개 번호의 합계는 최소 21(1+2+3+4+5+6)부터 최대 255(40+41+42+43+44+45)까지 가능합니다. 수학적으로 모든 가능한 조합의 합계 평균은 약 138입니다.</p>
+        <p>역대 당첨 번호의 합계를 분석하면 대부분 <strong>100~175 범위</strong>에 집중되어 있습니다. 합계가 극단적으로 낮은 경우(예: 합계 70 미만)나 높은 경우(예: 합계 200 이상)는 드뭅니다. 번호를 선택할 때 합계가 100~175 범위 안에 들어오도록 조정하면, 통계적으로 빈번하게 등장하는 패턴의 번호를 만들 수 있습니다.</p>
+      </section>
+
+      <section id="s5">
+        <h3>연속 번호 전략</h3>
+        <p>역대 당첨 번호 중 상당 부분에 연속된 숫자 쌍이 1개 이상 포함되어 있습니다. 예를 들어 {7, 8}, {22, 23}처럼 연속된 두 숫자가 함께 나오는 경우가 많습니다. 3개 이상 연속(예: 14, 15, 16)은 드물지만 가끔 나타납니다.</p>
+        <p>6개 번호 중 연속된 쌍 1개를 포함하는 전략은 통계적으로 실제 당첨 패턴과 유사한 번호 구성을 만들어줍니다. 반면 6개가 모두 연속이거나(예: 10, 11, 12, 13, 14, 15) 모두 5 이상 간격으로 떨어진 경우는 역대 당첨 이력에서 거의 찾기 어렵습니다.</p>
+      </section>
+
+      <section id="s6">
+        <h3>자동 번호 vs 수동 번호</h3>
+        <p>복권 판매점에서 자동 선택(QR 자동 발급)으로 구매하면 컴퓨터가 완전히 무작위로 번호를 생성합니다. 실제로 로또 당첨자 중 상당수가 자동으로 구매한 복권에서 나옵니다. 이는 자동 번호가 더 유리해서가 아니라, 전체 판매량에서 자동 구매 비율이 압도적으로 높기 때문입니다.</p>
+        <p>수동으로 직접 번호를 선택하면 자신만의 의미 있는 숫자(기념일, 행운의 숫자 등)를 담을 수 있고, 남들이 잘 선택하지 않는 조합을 고를 수 있다는 장점이 있습니다. 단, 생일 숫자(1~31 편중), 대각선 패턴 등은 의외로 많은 사람들이 선택하는 방식이라는 점을 감안해야 합니다.</p>
+      </section>
+
+      <section id="s7">
+        <h3>결론: 즐기는 것이 최선의 전략</h3>
+        <p>어떤 번호 선택 전략도 로또 당첨 확률을 높여주지 않습니다. 1등 확률은 전략과 관계없이 항상 약 8백만 분의 1입니다. 이 페이지에서 소개한 방법들은 당첨 확률을 높이는 비법이 아니라, 통계적으로 빈번한 당첨 번호 패턴을 참고한 번호 구성 방법입니다.</p>
+        <p>로또를 즐기는 가장 좋은 방법은 과도한 기대 없이 적절한 금액 내에서 즐기는 것입니다. 본 사이트의 번호 추첨기와 분석 도구를 활용해 자신만의 방식으로 재미있게 번호를 골라보세요.</p>
+        <p class="disclaimer">※ 이 페이지의 모든 전략 설명은 통계적 패턴 분석에 기반한 참고 자료이며, 당첨을 보장하거나 예측하지 않습니다.</p>
+      </section>
+
+      <div class="article-footer-nav">
+        <a href="/guide.html" class="btn-secondary">← 로또 완벽 가이드 보기</a>
+        <a href="/" class="btn-primary">번호 추첨기로 이동 →</a>
+      </div>
+
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">홈</a>
+        <a href="/guide.html">로또 가이드</a>
+        <a href="/strategy.html">번호 전략</a>
+        <a href="/about.html">사이트 소개</a>
+        <a href="/privacy.html">개인정보처리방침</a>
+      </div>
+      <p class="footer-notice">본 사이트는 단순 번호 생성 도구 및 정보 제공 서비스이며, 동행복권과 무관합니다. 복권 구매는 만 19세 이상만 가능합니다.</p>
+      <p class="footer-copyright">© 2026 로또 번호 추첨기. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script defer src="/main.js"></script>
+</body>
+</html>
