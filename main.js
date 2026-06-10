@@ -47,3 +47,37 @@ function displayNumbers(numbers) {
 generateBtn.addEventListener('click', () => {
     displayNumbers(generateLottoNumbers());
 });
+
+// Contact form (Formspree AJAX)
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '전송 중...';
+    formStatus.className = '';
+    formStatus.textContent = '';
+
+    try {
+        const res = await fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+            formStatus.textContent = '✅ 문의가 성공적으로 접수되었습니다. 감사합니다!';
+            formStatus.className = 'success';
+            contactForm.reset();
+        } else {
+            throw new Error();
+        }
+    } catch {
+        formStatus.textContent = '❌ 전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+        formStatus.className = 'error';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '문의 보내기';
+    }
+});
