@@ -1,35 +1,49 @@
 const generateBtn = document.getElementById('generate-btn');
 const lottoNumbersContainer = document.querySelector('.lotto-numbers');
+const themeToggle = document.getElementById('theme-toggle');
 
+// Dark mode toggle
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    themeToggle.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark');
+    themeToggle.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+// Lotto logic
 function generateLottoNumbers() {
     const numbers = new Set();
     while (numbers.size < 6) {
-        const randomNumber = Math.floor(Math.random() * 45) + 1;
-        numbers.add(randomNumber);
+        numbers.add(Math.floor(Math.random() * 45) + 1);
     }
-    return Array.from(numbers);
+    return Array.from(numbers).sort((a, b) => a - b);
+}
+
+function getBallColor(number) {
+    if (number <= 10) return '#f5a623';
+    if (number <= 20) return '#4a90e2';
+    if (number <= 30) return '#d0021b';
+    if (number <= 40) return '#7ed321';
+    return '#8b572a';
 }
 
 function displayNumbers(numbers) {
     lottoNumbersContainer.innerHTML = '';
-    numbers.forEach(number => {
-        const lottoBall = document.createElement('div');
-        lottoBall.classList.add('lotto-ball');
-        lottoBall.textContent = number;
-        lottoBall.style.backgroundColor = getBallColor(number);
-        lottoNumbersContainer.appendChild(lottoBall);
+    numbers.forEach((number, i) => {
+        const ball = document.createElement('div');
+        ball.classList.add('lotto-ball');
+        ball.textContent = number;
+        ball.style.backgroundColor = getBallColor(number);
+        ball.style.animationDelay = `${i * 0.08}s`;
+        lottoNumbersContainer.appendChild(ball);
     });
 }
 
-function getBallColor(number) {
-    if (number <= 10) return '#f5a623'; // Yellow
-    if (number <= 20) return '#4a90e2'; // Blue
-    if (number <= 30) return '#d0021b'; // Red
-    if (number <= 40) return '#7ed321'; // Green
-    return '#8b572a'; // Brown
-}
-
 generateBtn.addEventListener('click', () => {
-    const numbers = generateLottoNumbers();
-    displayNumbers(numbers);
+    displayNumbers(generateLottoNumbers());
 });
