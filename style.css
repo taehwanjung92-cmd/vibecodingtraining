@@ -220,3 +220,19 @@ h1 {
 
 #form-status.success { color: #22c55e; }
 #form-status.error   { color: #ef4444; }
+
+/* Disqus */
+.disqus-container {
+    text-align: left;
+}
+
+.disqus-container h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem;
+    color: var(--text-color);
+}
+
+#disqus_thread {
+    color: var(--text-color);
+}
